@@ -4,6 +4,7 @@ var mapOptions = {
 
 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+
 $.ajax({
     url: "cartes/breche.gpx",
     type: "GET",
@@ -16,6 +17,7 @@ $.ajax({
         var coordonneesMap;
         var lat, long;
         var elevation, elevationFinalMax = 0, elevationFinalMin=10000;
+        var myDate;
 
         $(xml).find("trkpt").each(function(){
             lat = $(this).attr("lat");
@@ -36,6 +38,9 @@ $.ajax({
         });
         
         
+        var longueur = google.maps.geometry.spherical.computeLength(points);
+        console.log("La longuer est de " + longueur);
+        
        /** INSERTION DES DEUX MARKES **/
         
         var marker_start = new google.maps.Marker({
@@ -50,11 +55,15 @@ $.ajax({
             position: points[points.length-1],
             map: map,
         });
-        
+                
         /** END MARKERS **/
         
         function auCentieme(nombre){
             return Math.round(100*nombre)/100;
+        }
+        
+        function auKilometre(nombre){
+            return Math.round(nombre);
         }
         
         $(xml).find("ele").each(function(){
@@ -68,20 +77,33 @@ $.ajax({
             if(elevation >= elevationFinalMax)
                 {
                     elevationFinalMax = elevation;
-                }
-            
-            Math.rou
-            
+                }            
         });
 
+        $("#totalKm").append(auKilometre(longueur) + " m");
         $("#altMax").append(auCentieme(elevationFinalMax) + " m");
         $("#altMin").append(auCentieme(elevationFinalMin) + " m");
         
         
          console.log(elevationFinalMin);
         
+        /*$(xml).find("time").each(function(){
+            
+            
+            console.log($(this));
+        });*/
+        
+        
+        
+        
+        //myDate = new Date('2016-01-08T08:57:35Z'); //ISO-8601
+        //console.log(myDate.getTimezoneOffset());
         
         poly.setMap(map);
-        map.fitBounds(bounds);}
+        map.fitBounds(bounds);
+    }
+  
+       
+    
     
 });
