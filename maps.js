@@ -4,7 +4,6 @@ var mapOptions = {
 
 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-
 $.ajax({
     url: "cartes/breche.gpx",
     type: "GET",
@@ -36,7 +35,8 @@ $.ajax({
           strokeOpacity: .7,
           strokeWeight: 4,
         });
-        
+                
+        /** RECUPERATION DE LA LONGUEUR DU TRACE **/
         
         var longueur = google.maps.geometry.spherical.computeLength(points);
         console.log("La longuer est de " + longueur);
