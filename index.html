@@ -2,8 +2,10 @@
 <html>
     <head>
         <meta charset="utf-8"/>
+        <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
         <title>PT4 - Google maps .gpx</title>
         <link rel="stylesheet" href="style.css"/>
+        <script src="https://www.google.com/jsapi"></script>
     </head>
     <body>
        <nav>
@@ -12,15 +14,10 @@
        </nav>
        
         <div id="map"></div>
-        
-        <span id="totalKm">Longueur de l'itinéraire : </span><br/>
-        <span id="altMax">Altitude Max : </span><br/>
-        <span id="altMin">Altitude Min : </span><br/>
-       
-        
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmT9z3Dsf9-X7gGqxDFa4sEuNyzCT7das&libraries=geometry"></script>
+        <div id="elevation_chart"></div>
+                
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmT9z3Dsf9-X7gGqxDFa4sEuNyzCT7das"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script src="jquery.js"></script>
-        <script src ="maps.js"></script>
+        <script src="maps.js"></script>
     </body>
 </html>
