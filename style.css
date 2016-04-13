@@ -28,4 +28,10 @@ a{
 #map 
 { 
     height: 80%; 
+	width: 100%;
+}
+
+#elevation_chart
+{
+	width: 99%;
 }
