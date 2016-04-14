@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
+        <title>PT4 - Google maps .gpx</title>
+        <link rel="stylesheet" href="style.css"/>
+        <script src="https://www.google.com/jsapi"></script>
+    </head>
+    <body>
+       <nav>
+           <div><a href="index.html">Home</a></div>
+           <div><a href="#">About</a></div>
+       </nav>
+       
+       <div id="upload">
+           <form method="post" action="upload.php" enctype="multipart/form-data">
+           		Upload <input type="file" name="file">
+           		<input type="submit" name="submit" value="Envoyer">
+           </form>
+       </div>
+       
+        <div id="map"></div>
+        <div id="elevation_chart"></div>
+                
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmT9z3Dsf9-X7gGqxDFa4sEuNyzCT7das"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script>google.load('visualization', '1', {packages: ['columnchart']});</script>
+        <script src="maps.js"></script>
+    </body>
+</html>

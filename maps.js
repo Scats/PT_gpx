@@ -1,5 +1,3 @@
-google.load('visualization', '1', {packages: ['columnchart']});
-
 $.ajax({
     url: "cartes/map.gpx",
     type: "GET",
@@ -40,14 +38,15 @@ $.ajax({
 		var elevator = new google.maps.ElevationService;
 		
 		var map = new google.maps.Map(document.getElementById('map'), {
-    		zoom: 11,
+    		zoom: 12,
     		center: path[1],
+			streetViewControl: false,
     		mapTypeId: 'terrain'
   		});
 		
 		var poly = new google.maps.Polyline({
           path: path,
-          strokeColor: "#FF00AA",
+          strokeColor: "#0058ff",
           strokeOpacity: .7,
           strokeWeight: 4,
 		  map: map
@@ -62,53 +61,52 @@ $.ajax({
 		
 		var mousemarker = null;
 		
-	  var chartDiv = document.getElementById('elevation_chart');
-	  if (status !== google.maps.ElevationStatus.OK) {
-		// Show the error code inside the chartDiv.
-		chartDiv.innerHTML = 'Cannot show elevation: request failed because ' +
-			status;
-		return;
-	  }
-	  // Create a new chart in the elevation_chart DIV.
-	  var chart = new google.visualization.ColumnChart(chartDiv);
+	  	var chartDiv = document.getElementById('elevation_chart');
+	  	if (status !== google.maps.ElevationStatus.OK) {
+			// Show the error code inside the chartDiv.
+			chartDiv.innerHTML = 'Cannot show elevation: request failed because ' + status;
+			return;
+	  	}
+	  	// Create a new chart in the elevation_chart DIV.
+	  	var chart = new google.visualization.ColumnChart(chartDiv);
 
-	  // Extract the data from which to populate the chart.
-	  // Because the samples are equidistant, the 'Sample'
-	  // column here does double duty as distance along the
-	  // X axis.
-	  var data = new google.visualization.DataTable();
-	  data.addColumn('string', 'Sample');
-	  data.addColumn('number', 'Altitude');
-	  for (var i = 0; i < elevations.length; i++) {
+	  	// Extract the data from which to populate the chart.
+	  	// Because the samples are equidistant, the 'Sample'
+	  	// column here does double duty as distance along the
+	  	// X axis.
+	  	var data = new google.visualization.DataTable();
+	  	data.addColumn('string', 'Sample');
+	  	data.addColumn('number', 'Altitude');
+	  	for (var i = 0; i < elevations.length; i++) {
 		  
 		  		var dist = (distance/1000).toFixed(1) ;
 				var dist_z = (distance/1000).toFixed(0) ;
 				if ( dist == dist_z ) dist = dist_z ;
-				data.addRow([''+dist + ' Km', elevations[i].elevation]);
+				data.addRow([''+ dist + ' Km', elevations[i].elevation]);
 				if ( i < elevations.length - 1 )
 				{
 					distances[i] = google.maps.geometry.spherical.computeDistanceBetween (elevations[i].location, elevations[i+1].location);
 					distance = distance + distances[i];
 				}
-	  }
+	  	}
 
-	  // Draw the chart using the data within its DIV.
-	  chart.draw(data, {
-		height: 160,
-		legend: 'none',
-	  });
+	  	// Draw the chart using the data within its DIV.
+	  	chart.draw(data, {
+			height: 160,
+			legend: 'none',
+	  	});
 		
-	  google.visualization.events.addListener(chart, 'onmouseover', function(e)
+	  	google.visualization.events.addListener(chart, 'onmouseover', function(e)
 		{
 			if (mousemarker == null)
 			{
-				data.addRow(['', elevations[e.row].elevation])
 				mousemarker = new google.maps.Marker({
 				position: elevations[e.row].location,
 				map: map,
 				icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
 				});
-			} else {
+			} 
+			else {
 				mousemarker.setPosition(elevations[e.row].location);
 			}
 		});
